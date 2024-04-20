@@ -9,7 +9,7 @@ class Bar:
         height_pct = height / 100
         # print(height_pct)
         self.bar_height = round(height_pct * win_height) - 40
-        print(self.bar_height)
+        # print(self.bar_height)
         self.pb = ttk.Progressbar(
             master=master,
             orient='vertical',
