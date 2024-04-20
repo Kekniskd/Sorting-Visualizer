@@ -1,18 +1,19 @@
-from random import randint
-from tkinter import ttk
+from random import randint, choice
+from ttkbootstrap import ttk
 import tkinter as tk
 
 
 class Bar:
     def __init__(self, master: tk.Tk, win_height: int) -> None:
+        B_STYLE = choice(['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'dark'])
         height = randint(1, 100)
         height_pct = height / 100
-        # print(height_pct)
         self.bar_height = round(height_pct * win_height) - 40
-        # print(self.bar_height)
         self.pb = ttk.Progressbar(
             master=master,
             orient='vertical',
             length=self.bar_height,
+            value=100,
+            bootstyle=B_STYLE,
 
         )
