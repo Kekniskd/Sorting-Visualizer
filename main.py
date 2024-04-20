@@ -1,17 +1,18 @@
 import tkinter as tk
 from tkinter import ttk
-
 from Bar import Bar
 
 
-def updateBarPosition(_bars: list):
-    for _idx, _bar in enumerate(_bars):
+def updateBarPosition():
+    global bars
+    for _idx, _bar in enumerate(bars):
         _bar.pb.grid(row=0, column=_idx, sticky='ews', padx=1, pady=(0, 35))
 
 
-def sortBars(_bars: list):
-    _bars.sort(key=lambda barObj: barObj.bar_height)
-    updateBarPosition(_bars)
+def sortBars():
+    global bars
+    bars.sort(key=lambda barObj: barObj.bar_height)
+    updateBarPosition()
 
 
 if __name__ == '__main__':
@@ -24,16 +25,16 @@ if __name__ == '__main__':
     # window.resizable(False, True)
 
     # grid layout for bars printing
-    a = tuple(range(100))
+    a = tuple(range(10))
     window.columnconfigure(a, weight=1, uniform='a')
     window.rowconfigure(0, weight=1)
 
     # list of bars
     bars = [Bar(window, window_height) for _ in range(len(a))]
 
-    updateBarPosition(bars)
+    updateBarPosition()
 
-    sort_button = ttk.Button(master=window, text='Sort', command=lambda: sortBars(bars))
+    sort_button = ttk.Button(master=window, text='Sort', command=sortBars)
     sort_button.place(relx=0.48, rely=0.93)
 
     # run
