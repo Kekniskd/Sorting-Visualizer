@@ -79,7 +79,7 @@ if __name__ == '__main__':
     # window.resizable(False, True)
 
     # grid layout for bars printing
-    a = tuple(range(150))
+    a = tuple(range(100))
     window.columnconfigure(a, weight=1, uniform='a')
     window.rowconfigure(0, weight=1)
 

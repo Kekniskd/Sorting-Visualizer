@@ -14,6 +14,6 @@ class Bar:
             orient='vertical',
             length=self.bar_height,
             value=100,
-            bootstyle=B_STYLE,
+            bootstyle=f'{B_STYLE}-striped',
 
         )
