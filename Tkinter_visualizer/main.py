@@ -5,6 +5,40 @@ from tkinter import ttk
 from Bar import Bar
 
 
+def heapSort(array):
+    buildMaxHeap(array)
+    for endIdx in reversed(range(1, len(array))):
+        heap_swap(0, endIdx, array)
+        siftDown(0, endIdx - 1, array)
+
+
+def buildMaxHeap(array):
+    firstParentIdx = (len(array) - 2) // 2
+    for currentIdx in reversed(range(firstParentIdx + 1)):
+        siftDown(currentIdx, len(array) - 1, array)
+
+
+def siftDown(currentIdx, endIdx, heap):
+    childOneIdx = currentIdx * 2 + 1
+    while childOneIdx <= endIdx:
+        childTwoIdx = currentIdx * 2 + 2 if currentIdx * 2 + 2 <= endIdx else -1
+        if childTwoIdx > -1 and heap[childTwoIdx].bar_height > heap[childOneIdx].bar_height:
+            idxToSwap = childTwoIdx
+        else:
+            idxToSwap = childOneIdx
+        if heap[idxToSwap].bar_height > heap[currentIdx].bar_height:
+            heap_swap(currentIdx, idxToSwap, heap)
+            currentIdx = idxToSwap
+            childOneIdx = currentIdx * 2 + 1
+        else:
+            return
+
+
+def heap_swap(i, j, array):
+    array[i], array[j] = array[j], array[i]
+    updateBarPosition()
+
+
 def bubbleSort(array: list) -> None:
     is_sorted = False
     counter = 0
@@ -96,18 +130,19 @@ def updateBarPosition():
 
 def sortBars():
     global bars
-    bubbleSort(bars)
+    # bubbleSort(bars)
     # insertionSort(bars)
     # selectionSort(bars)
     # quickSort(bars)
+    heapSort(bars)
 
 
 if __name__ == '__main__':
     # window
     window = tk.Tk()
     window.title('Sorting Algorithms')
-    wondow_width = 900
-    window_height = 500
+    wondow_width = 1602
+    window_height = 900
     window.geometry(f'{str(wondow_width)}x{str(window_height)}')
     # window.resizable(False, True)
 
@@ -117,7 +152,7 @@ if __name__ == '__main__':
     window.rowconfigure(0, weight=1)
 
     # list of bars
-    height_mul = (window.winfo_screenheight() / len(a))
+    height_mul = ((window.winfo_screenheight() - 150) / len(a))
     bars = [Bar(window, i * height_mul) for i in range(len(a))]
     shuffle(bars)
 
