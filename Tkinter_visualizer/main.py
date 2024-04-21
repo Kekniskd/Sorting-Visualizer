@@ -40,6 +40,38 @@ def selectionSort(array: list) -> list:
     return array
 
 
+def quickSort(array: list) -> None:
+    quickSortHelper(array, 0, len(array) - 1)
+
+
+def quickSortHelper(array: list, startIdx: int, endIdx: int) -> None:
+    if startIdx >= endIdx:
+        return
+    pivotIdx = startIdx
+    leftIdx = startIdx + 1
+    rightIdx = endIdx
+    while rightIdx >= leftIdx:
+        if array[leftIdx].bar_height > array[pivotIdx].bar_height > array[rightIdx].bar_height:
+            quick_swap(leftIdx, rightIdx, array)
+        if array[leftIdx].bar_height <= array[pivotIdx].bar_height:
+            leftIdx += 1
+        if array[rightIdx].bar_height >= array[pivotIdx].bar_height:
+            rightIdx -= 1
+    quick_swap(pivotIdx, rightIdx, array)
+    leftSubarrayIsSmaller = rightIdx - 1 - startIdx < endIdx - (rightIdx + 1)
+    if leftSubarrayIsSmaller:
+        quickSortHelper(array, startIdx, rightIdx - 1)
+        quickSortHelper(array, rightIdx + 1, endIdx)
+    else:
+        quickSortHelper(array, rightIdx + 1, endIdx)
+        quickSortHelper(array, startIdx, rightIdx - 1)
+
+
+def quick_swap(i: int, j: int, array: list) -> None:
+    array[i], array[j] = array[j], array[i]
+    updateBarPosition()
+
+
 def selection_swap(i: int, j: int, array: list) -> None:
     array[i], array[j] = array[j], array[i]
     updateBarPosition()
@@ -67,6 +99,7 @@ def sortBars():
     bubbleSort(bars)
     # insertionSort(bars)
     # selectionSort(bars)
+    # quickSort(bars)
 
 
 if __name__ == '__main__':
@@ -79,12 +112,12 @@ if __name__ == '__main__':
     # window.resizable(False, True)
 
     # grid layout for bars printing
-    a = tuple(range(100))
+    a = tuple(range(150))
     window.columnconfigure(a, weight=1, uniform='a')
     window.rowconfigure(0, weight=1)
 
     # list of bars
-    height_mul = window_height / len(a)
+    height_mul = (window.winfo_screenheight() / len(a))
     bars = [Bar(window, i * height_mul) for i in range(len(a))]
     shuffle(bars)
 

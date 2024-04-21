@@ -12,8 +12,9 @@ class Bar:
         self.pb = ttk.Progressbar(
             master=master,
             orient='vertical',
-            length=self.bar_height,
+            length=self.bar_height - 150,
             value=100,
             bootstyle=f'{B_STYLE}-striped',
 
         )
+        # self.pb['value'] = 50
