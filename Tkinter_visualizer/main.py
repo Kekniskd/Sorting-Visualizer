@@ -159,7 +159,13 @@ if __name__ == '__main__':
     updateBarPosition()
 
     sort_button = ttk.Button(master=window, text='Sort', command=sortBars)
-    sort_button.place(relx=0.48, rely=0.93)
+    sort_button.grid(row=1, column=1, columnspan=len(a) * 1)
+
+    # sort_button = ttk.Button(master=window, text='test') # , command=sortBars
+    # sort_button.grid(row=1, column=2, columnspan=len(a)*2)
+    #
+    # sort_button = ttk.Button(master=window, text='test') # , command=sortBars
+    # sort_button.grid(row=1, column=3, columnspan=len(a)*3)
 
     # run
     window.mainloop()
